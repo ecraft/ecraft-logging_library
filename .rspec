@@ -1,2 +1,4 @@
+-I.
 --format documentation
 --color
+-rspec_helper
