@@ -11,7 +11,7 @@ module Ecraft
       def call(severity, time, progname, message)
         # LOG_PATTERN = '%l [%d] %c: %M'.freeze
 
-        if show_time
+        if show_time?
           format("%-5s [%s] %s: %s\n", severity, time.strftime(DATE_PATTERN), progname, message_to_s(message))
         else
           format("%-5s %s: %s\n", severity, progname, message_to_s(message))
@@ -35,7 +35,7 @@ module Ecraft
         end
       end
 
-      def show_time
+      def show_time?
         # When STDOUT is redirected, we are likely running as a service with a syslog daemon already appending a timestamp to the
         # line (and two timestamps is redundant).
         STDOUT.tty?

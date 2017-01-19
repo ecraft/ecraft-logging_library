@@ -1,6 +1,7 @@
 # Ecraft::LoggingLibrary
 
-This library provides logging support for your application or framework.
+This library provides logging support for your application or framework, with an opinionated default configuration in terms of log
+format, etc. It is compatible with both JRuby and MRI.
 
 ## Installation
 
@@ -12,11 +13,27 @@ gem 'ecraft-logging_library'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+## Usage
 
-    $ gem install ecraft-logging_library
+```ruby
+require 'ecraft/logging_library'
+
+class MyClass
+  include Ecraft::LoggingLibrary::Loggable
+
+  def load_data_from_database
+    logger.info('Starting to load data from database')
+    logger.debug("Running as user #{current_user}") # DEBUG messages are not printed by default; see logger.level if you
+                                                            # want to customize the log level.
+  end
+
+  def current_user
+    'john_doe'
+  end
+end
+```
 
 ## Development
 

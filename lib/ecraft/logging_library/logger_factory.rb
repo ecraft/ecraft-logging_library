@@ -10,13 +10,6 @@ module Ecraft
         logger_name = name || caller[0][/`.*'/][1..-2]
         Logger.new(logger_name)
       end
-
-      def _create_formatter
-        Log4r::PatternFormatter.new(
-          pattern: LOG_PATTERN,
-          date_pattern: DATE_PATTERN
-        )
-      end
     end
   end
 end

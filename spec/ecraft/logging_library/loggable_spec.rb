@@ -8,6 +8,7 @@ module Ecraft
           }
         end
         let(:klass) { ClassThatIncludesLoggable }
+        subject { klass.new }
 
         describe '#logger' do
           context 'responds to' do
@@ -29,6 +30,19 @@ module Ecraft
             it 'sets the logger name to the expected value' do
               expect(subject.logger.name).to eq 'ClassThatIncludesLoggable'
             end
+          end
+
+          # DEBUG severity is not printed out by default.
+          it "does not print a message to STDOUT when sending the 'debug' message" do
+            expect { subject.logger.debug('debug blerp') }.to_not output.to_stdout
+          end
+
+          it "prints a message to STDOUT when sending the 'info' message" do
+            expect { subject.logger.info('info blerp') }.to output(/info blerp/).to_stdout
+          end
+
+          it "prints a message to STDOUT when sending the 'warn' message" do
+            expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stdout
           end
         end
       end

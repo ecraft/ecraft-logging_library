@@ -14,8 +14,9 @@ module Ecraft
       def_delegator :logger, :progname, :name
 
       def initialize(name)
-        init
+        init($stdout)
 
+        logger.level = :info
         logger.progname = name
         logger.formatter = CustomFormatter.new
       end
