@@ -1,4 +1,5 @@
 require 'logger'
+require 'rainbow'
 
 module Ecraft
   module LoggingLibrary
@@ -11,11 +12,12 @@ module Ecraft
       def call(severity, time, progname, message)
         # LOG_PATTERN = '%l [%d] %c: %M'.freeze
 
-        if show_time?
+        result = if show_time?
           format("%-5s [%s] %s: %s\n", severity, time.strftime(DATE_PATTERN), progname, message_to_s(message))
         else
           format("%-5s %s: %s\n", severity, progname, message_to_s(message))
         end
+        Rainbow(result).color(color_for_severity(severity))
       end
 
       private
@@ -32,6 +34,24 @@ module Ecraft
             (message.backtrace || []).join("\n")
         else
           msg.inspect
+        end
+      end
+
+      # @param severity [String] The severity, like INFO, ERROR etc.
+      def color_for_severity(severity)
+        case severity.downcase.to_sym
+        when :fatal
+          :red
+        when :error
+          '#FF4040'
+        when :warn
+          :yellow
+        when :info
+          '#FFFFFF' # white
+        when :debug
+          :gray
+        else
+          :gray
         end
       end
 

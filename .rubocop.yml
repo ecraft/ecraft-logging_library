@@ -20,3 +20,5 @@ Style/FileName:
   Enabled: false
 Style/MultilineOperationIndentation:
   EnforcedStyle: indented
+
+inherit_from: .rubocop_todo.yml
