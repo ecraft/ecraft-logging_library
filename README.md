@@ -1,7 +1,11 @@
 # Ecraft::LoggingLibrary
 
 This library provides logging support for your application or framework, with an opinionated default configuration in terms of log
-format, etc. It is compatible with both JRuby and MRI.
+format, etc.
+
+It is compatible with both JRuby and MRI. Requires Ruby 2.2+.
+
+Wraps the functionality of [mixlog-log](https://github.com/chef/mixlib-log).
 
 ## Installation
 
