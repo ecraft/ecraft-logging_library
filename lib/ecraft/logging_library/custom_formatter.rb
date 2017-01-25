@@ -17,7 +17,12 @@ module Ecraft
         else
           format("%-5s %s: %s\n", severity, progname, message_to_s(message))
         end
-        Rainbow(result).color(color_for_severity(severity))
+
+        if tty?
+          Rainbow(result).color(color_for_severity(severity))
+        else
+          result
+        end
       end
 
       private
@@ -40,24 +45,22 @@ module Ecraft
       # @param severity [String] The severity, like INFO, ERROR etc.
       def color_for_severity(severity)
         case severity.downcase.to_sym
-        when :fatal
-          :red
-        when :error
-          '#FF4040'
-        when :warn
-          :yellow
-        when :info
-          '#FFFFFF' # white
-        when :debug
-          :gray
-        else
-          :gray
+        when :fatal then :red
+        when :error then '#FF4040'
+        when :warn  then :yellow
+        when :info  then '#FFFFFF'
+        when :debug then :gray
+        else :gray
         end
       end
 
       def show_time?
         # When STDOUT is redirected, we are likely running as a service with a syslog daemon already appending a timestamp to the
         # line (and two timestamps is redundant).
+        tty?
+      end
+
+      def tty?
         STDOUT.tty?
       end
     end
