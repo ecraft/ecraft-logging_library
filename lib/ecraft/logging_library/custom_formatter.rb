@@ -8,24 +8,51 @@ module Ecraft
     #
     class CustomFormatter < ::Logger::Formatter
       DATE_PATTERN = '%Y-%m-%d %H:%M:%S.%L'.freeze
+      LINE_PREPEND = ' ' * 8
 
       def call(severity, time, progname, message)
-        # LOG_PATTERN = '%l [%d] %c: %M'.freeze
-
-        result = if show_time?
-          format("%-5s [%s] %s: %s\n", severity, time.strftime(DATE_PATTERN), progname, message_to_s(message))
+        if show_time?
+          format("%s %s %s %s\n", formatted_colored_severity(severity), formatted_colored_time(time, severity),
+                 formatted_colored_progname(progname, severity), colored_message(message_to_s(message), severity))
         else
+          # No colorization is needed here, since we draw the assumption that if show_time? is false, we are being redirected.
           format("%-5s %s: %s\n", severity, progname, message_to_s(message))
-        end
-
-        if tty?
-          Rainbow(result).color(color_for_severity(severity))
-        else
-          result
         end
       end
 
       private
+
+      def formatted_colored_severity(severity)
+        formatted_severity = format('%-5s', severity)
+
+        if tty?
+          Rainbow(formatted_severity).color(color_for_severity(severity))
+        else
+          formatted_severity
+        end
+      end
+
+      def formatted_colored_time(time, severity)
+        formatted_time = '[' + time.strftime(DATE_PATTERN) + ']'
+
+        if tty?
+          Rainbow(formatted_time).color(time_color_for_severity(severity))
+        else
+          formatted_severity
+        end
+      end
+
+      def formatted_colored_progname(progname, severity)
+        formatted_progname = progname + ':'
+        return formatted_progname unless tty?
+
+        Rainbow(formatted_progname).color(color_for_severity(severity))
+      end
+
+      def colored_message(mesage, severity)
+        return message unless tty?
+        Rainbow(mesage).color(color_for_severity(severity))
+      end
 
       # Converts some argument to a Logger.severity() call to a string.  Regular strings pass through like
       # normal, Exceptions get formatted as "message (class)\nbacktrace", and other random stuff gets
@@ -35,8 +62,9 @@ module Ecraft
         when ::String
           message
         when ::Exception
-          "#{message.message} (#{message.class})\n" <<
-            (message.backtrace || []).join("\n")
+          "#{message.message} (#{message.class})\n" +
+            LINE_PREPEND +
+            (message.backtrace || []).join("\n#{LINE_PREPEND}")
         else
           msg.inspect
         end
@@ -45,11 +73,25 @@ module Ecraft
       # @param severity [String] The severity, like INFO, ERROR etc.
       def color_for_severity(severity)
         case severity.downcase.to_sym
-        when :fatal then :red
-        when :error then '#FF4040'
+        when :fatal then :magenta
+        when :error then :red
         when :warn  then :yellow
+        when :info  then :gray
+        when :debug then '#606060'
+        else :gray
+        end
+      end
+
+      # Returns a somewhat lighter color for the time, to make it stand out in the presentation.
+      #
+      # @param severity [String] The severity, like INFO, ERROR etc.
+      def time_color_for_severity(severity)
+        case severity.downcase.to_sym
+        when :fatal then '#FF00FF'
+        when :error then '#FF0000'
+        when :warn  then '#FFFF00'
         when :info  then '#FFFFFF'
-        when :debug then :gray
+        when :debug then '#808080'
         else :gray
         end
       end
