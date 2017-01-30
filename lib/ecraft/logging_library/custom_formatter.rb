@@ -18,7 +18,7 @@ module Ecraft
                    formatted_colored_logger_name, colored_message)
           else
             # No colorization is needed here, since we draw the assumption that if show_time? is false, we are being redirected.
-            format("%-5s %s: %s\n", severity, logger_name, message_to_s(message))
+            format("%-5s %s: %s\n", severity, logger_name, formatted_message)
           end
         end
 
@@ -107,7 +107,7 @@ module Ecraft
         end
 
         def tty?
-          STDOUT.tty?
+          $stdout.tty?
         end
       end
 
