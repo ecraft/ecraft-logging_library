@@ -23,7 +23,7 @@ module Ecraft
         end
 
         def colored_message
-          return formatted_message unless tty?
+          return formatted_message unless Rainbow.enabled
           Rainbow(formatted_message).color(color_for_severity)
         end
 
@@ -44,7 +44,7 @@ module Ecraft
         end
 
         def formatted_colored_severity
-          if tty?
+          if Rainbow.enabled
             Rainbow(formatted_severity).color(color_for_severity)
           else
             formatted_severity
@@ -52,7 +52,7 @@ module Ecraft
         end
 
         def formatted_colored_time
-          if tty?
+          if Rainbow.enabled
             Rainbow(formatted_time).color(time_color_for_severity)
           else
             formatted_severity
@@ -60,7 +60,7 @@ module Ecraft
         end
 
         def formatted_colored_logger_name
-          return formatted_logger_name unless tty?
+          return formatted_logger_name unless Rainbow.enabled
 
           Rainbow(formatted_logger_name).color(color_for_severity)
         end
