@@ -17,14 +17,13 @@ module Ecraft
             format("%s %s %s %s\n", formatted_colored_severity, formatted_colored_time,
                    formatted_colored_logger_name, colored_message)
           else
-            # No colorization is needed here, since we draw the assumption that if show_time? is false, we are being redirected.
-            format("%-5s %s: %s\n", severity, logger_name, formatted_message)
+            format("%-5s %s %s\n", formatted_colored_severity, formatted_colored_logger_name, colored_message)
           end
         end
 
         def colored_message
           return formatted_message unless Rainbow.enabled
-          Rainbow(formatted_message).color(color_for_severity)
+          Rainbow(formatted_message).color(text_color_for_severity)
         end
 
         # Converts some argument to a Logger.severity() call to a string.  Regular strings pass through like
@@ -62,7 +61,7 @@ module Ecraft
         def formatted_colored_logger_name
           return formatted_logger_name unless Rainbow.enabled
 
-          Rainbow(formatted_logger_name).color(color_for_severity)
+          Rainbow(formatted_logger_name).color(text_color_for_severity)
         end
 
         def formatted_severity
@@ -78,6 +77,14 @@ module Ecraft
         end
 
         def color_for_severity
+          if show_time?
+            text_color_for_severity
+          else
+            color_for_severity_lighter
+          end
+        end
+
+        def text_color_for_severity
           case severity.downcase.to_sym
           when :fatal then :magenta
           when :error then :red
@@ -99,6 +106,9 @@ module Ecraft
           else :gray
           end
         end
+
+        # We want "something" to stand out. If time isn't being shown, we utilize its color for displaying the severity.
+        alias_method :color_for_severity_lighter, :time_color_for_severity
 
         def show_time?
           # When STDOUT is redirected, we are likely running as a service with a syslog daemon already appending a timestamp to the

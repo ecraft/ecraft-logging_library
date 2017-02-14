@@ -2,6 +2,8 @@
 
 require 'ecraft/logging_library'
 
+Rainbow.enabled = true
+
 class SomeClass
   include Ecraft::LoggingLibrary::Loggable
 
