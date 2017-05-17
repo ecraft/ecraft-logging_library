@@ -33,16 +33,16 @@ module Ecraft
           end
 
           # DEBUG severity is not printed out by default.
-          it "does not print a message to STDOUT when sending the 'debug' message" do
-            expect { subject.logger.debug('debug blerp') }.to_not output.to_stdout
+          it "does not print a message to STDERR when sending the 'debug' message" do
+            expect { subject.logger.debug('debug blerp') }.to_not output.to_stderr
           end
 
-          it "prints a message to STDOUT when sending the 'info' message" do
-            expect { subject.logger.info('info blerp') }.to output(/info blerp/).to_stdout
+          it "prints a message to STDERR when sending the 'info' message" do
+            expect { subject.logger.info('info blerp') }.to output(/info blerp/).to_stderr
           end
 
-          it "prints a message to STDOUT when sending the 'warn' message" do
-            expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stdout
+          it "prints a message to STDERR when sending the 'warn' message" do
+            expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stderr
           end
         end
       end

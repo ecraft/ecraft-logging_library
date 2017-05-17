@@ -14,7 +14,7 @@ module Ecraft
       def_delegator :logger, :progname, :name
 
       def initialize(name)
-        init($stdout)
+        init($stderr)
 
         logger.level = :info
         logger.progname = name

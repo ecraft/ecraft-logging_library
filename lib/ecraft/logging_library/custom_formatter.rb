@@ -111,13 +111,13 @@ module Ecraft
         alias_method :color_for_severity_lighter, :time_color_for_severity
 
         def show_time?
-          # When STDOUT is redirected, we are likely running as a service with a syslog daemon already appending a timestamp to the
+          # When STDERR is redirected, we are likely running as a service with a syslog daemon already appending a timestamp to the
           # line (and two timestamps is redundant).
           tty?
         end
 
         def tty?
-          $stdout.tty?
+          $stderr.tty?
         end
       end
 
