@@ -12,7 +12,7 @@ module LoggingLibrary
 
       def _logger_name
         # Handle both `extend` and `include` use cases.
-        if self.class == Class
+        if self.class == Class || self.class == Module
           _short_class_name(to_s)
         else
           _short_class_name(self.class.name)

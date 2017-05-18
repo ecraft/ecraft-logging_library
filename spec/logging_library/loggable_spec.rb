@@ -1,5 +1,25 @@
 module LoggingLibrary
   describe Loggable do
+    context 'when a module includes the Loggable module' do
+      before(:all) do
+        ModuleThatIncludesLoggable = Module.new {
+          extend Loggable
+        }
+      end
+      let(:mod) { ModuleThatIncludesLoggable }
+      subject { mod }
+
+      describe '#logger' do
+        it 'reuses the same logger between calls' do
+          expect(subject.logger).to be subject.logger
+        end
+
+        it 'sets the logger name to the expected value' do
+          expect(subject.logger.name).to eq 'ModuleThatIncludesLoggable'
+        end
+      end
+    end
+
     context 'when a class includes the module' do
       before(:all) do
         ClassThatIncludesLoggable = Class.new {
