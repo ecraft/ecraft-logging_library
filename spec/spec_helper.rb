@@ -1,1 +1,1 @@
-require 'ecraft/logging_library'
+require 'logging_library'

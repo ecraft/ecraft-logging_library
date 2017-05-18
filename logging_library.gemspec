@@ -1,18 +1,18 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ecraft/logging_library/version'
+require 'logging_library/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'ecraft-logging_library'
-  spec.version       = Ecraft::LoggingLibrary::VERSION
+  spec.name          = 'logging_library'
+  spec.version       = LoggingLibrary::VERSION
   spec.authors       = ['Tre Kronor']
   spec.email         = ['team.trekronor@ecraft.com']
 
-  spec.summary       = 'eCraft logging library'
+  spec.summary       = 'Logging library'
   spec.description   = 'Library with support for logging in applications.'
-  spec.homepage      = 'https://github.com/ecraft/ecraft-logging_library'
-  spec.license       = 'Nonstandard'
+  spec.homepage      = 'https://github.com/ecraft/logging_library'
+  spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.

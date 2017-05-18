@@ -1,7 +1,8 @@
 require 'spec_helper'
+require 'ecraft/logging_library' # Not included by default
 
 describe Ecraft::LoggingLibrary do
-  it 'has a version number' do
-    expect(Ecraft::LoggingLibrary::VERSION).not_to be nil
+  it 'is defined as a compatibility module' do
+    expect(subject).to eq LoggingLibrary
   end
 end
