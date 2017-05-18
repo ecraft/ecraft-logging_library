@@ -1,4 +1,4 @@
-# Ecraft::LoggingLibrary
+# LoggingLibrary
 
 This library provides logging support for your application or framework, with an opinionated default configuration in terms of log
 format, etc.
@@ -12,9 +12,7 @@ Wraps the functionality of [mixlog-log](https://github.com/chef/mixlib-log).
 Add this line to your application's `Gemfile`, inside a `source` block:
 
 ```ruby
-source 'https://gem.fury.io/ecraft-gems/' do
-  gem 'ecraft-logging_library'
-end
+gem 'logging_library'
 ```
 
 And then execute:
@@ -24,10 +22,10 @@ And then execute:
 ## Usage
 
 ```ruby
-require 'ecraft/logging_library'
+require 'logging_library'
 
 class MyClass
-  include Ecraft::LoggingLibrary::Loggable
+  include LoggingLibrary::Loggable
 
   def load_data_from_database
     logger.info('Starting to load data from database')
@@ -66,7 +64,7 @@ push git commits and tags, and push the `.gem` file to
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/ecraft/ecraft-logging_library. This project is intended to
+https://github.com/ecraft/logging_library. This project is intended to
 be a safe, welcoming space for collaboration, and contributors are expected to
 adhere to the [Contributor Covenant](http://contributor-covenant.org) code of
 conduct.
