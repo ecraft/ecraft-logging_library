@@ -6,3 +6,5 @@ gemspec
 group :development do
   gem 'yard'
 end
+
+gem 'rubocop', '= 0.50.0'

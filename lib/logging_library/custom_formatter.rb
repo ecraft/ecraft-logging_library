@@ -14,7 +14,7 @@ module LoggingLibrary
       def to_formatted_string
         if show_time?
           format("%s %s %s %s\n", formatted_colored_severity, formatted_colored_time,
-                  formatted_colored_logger_name, colored_message)
+                 formatted_colored_logger_name, colored_message)
         else
           format("%-5s %s %s\n", formatted_colored_severity, formatted_colored_logger_name, colored_message)
         end

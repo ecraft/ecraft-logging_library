@@ -1,5 +1,10 @@
+AllCops:
+  TargetRubyVersion: 1.9
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
 Lint/EndAlignment:
-  AlignWith: variable
+  EnforcedStyleAlignWith: variable
 
 Metrics/BlockLength:
   Exclude:
@@ -16,9 +21,9 @@ Style/Documentation:
   Enabled: false
 Style/Encoding:
   Enabled: false
-Style/FileName:
+Naming/FileName:
   Enabled: false
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
 inherit_from: .rubocop_todo.yml
