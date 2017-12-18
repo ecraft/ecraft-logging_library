@@ -13,7 +13,7 @@ module LoggingLibrary
     def_delegator :logger, :progname, :name
 
     def initialize(name)
-      init($stderr)
+      init(LoggingLibrary::output_device)
 
       logger.level = :info
       logger.progname = name

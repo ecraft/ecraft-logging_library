@@ -8,6 +8,14 @@ module LoggingLibrary
   Loggable = Mixins::Loggable
 
   LOG_LEVELS = Mixlib::Log::LEVELS.keys.freeze
+
+  class << self
+    def output_device
+      @output_device ||= $stderr
+    end
+
+    attr_writer :output_device
+  end
 end
 
 # Avoid buffering output when running under e.g. Foreman.

@@ -116,7 +116,7 @@ module LoggingLibrary
       end
 
       def tty?
-        $stderr.tty?
+        LoggingLibrary.output_device.tty?
       end
     end
 

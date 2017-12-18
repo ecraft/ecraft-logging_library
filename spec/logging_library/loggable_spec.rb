@@ -53,15 +53,15 @@ module LoggingLibrary
 
         # DEBUG severity is not printed out by default.
         it "does not print a message to STDERR when sending the 'debug' message" do
-          expect { subject.logger.debug('debug blerp') }.to_not output.to_stderr
+          expect { subject.logger.debug('debug blerp') }.to_not output.to_stderr_from_any_process
         end
 
         it "prints a message to STDERR when sending the 'info' message" do
-          expect { subject.logger.info('info blerp') }.to output(/info blerp/).to_stderr
+          expect { subject.logger.info('info blerp') }.to output(/info blerp/).to_stderr_from_any_process
         end
 
         it "prints a message to STDERR when sending the 'warn' message" do
-          expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stderr
+          expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stderr_from_any_process
         end
       end
     end
