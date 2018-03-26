@@ -51,6 +51,13 @@ class MyClass
 end
 ```
 
+## Environment variables
+
+- `LOGGING_LIBRARY_DISABLE_TIMESTAMPS` - set this to any value to disable
+  timestamping which is otherwise performed on log entries when running in
+  interactive/TTY mode. This setting can be useful in scenarios where you
+  would otherwise get double timestamps on each line.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then,
