@@ -63,6 +63,30 @@ module LoggingLibrary
         it "prints a message to STDERR when sending the 'warn' message" do
           expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stderr_from_any_process
         end
+
+        context 'when LOGGING_LIBRARY_DISABLE_TIMESTAMPS is set' do
+          before {
+            allow(ENV).to receive('[]').and_call_original
+            allow(ENV).to receive('[]').with('LOGGING_LIBRARY_DISABLE_TIMESTAMPS') { '1' }
+            allow_any_instance_of(LoggingLibrary::CustomFormatter::LogMessage).to receive(:tty?) { true }
+          }
+
+          it 'does not include the timestamp in the logged output' do
+            expect { subject.logger.warn('message without timestamp') }.to_not output(/\d{2}:\d{2}:\d{2}/).to_stderr_from_any_process
+          end
+        end
+
+        context 'when LOGGING_LIBRARY_DISABLE_TIMESTAMPS is not set' do
+          before {
+            allow(ENV).to receive('[]').and_call_original
+            allow(ENV).to receive('[]').with('LOGGING_LIBRARY_DISABLE_TIMESTAMPS') { nil }
+            allow_any_instance_of(LoggingLibrary::CustomFormatter::LogMessage).to receive(:tty?) { true }
+          }
+
+          it 'includes the timestamp in the logged output' do
+            expect { subject.logger.warn('message with timestamp') }.to output(/\d{2}:\d{2}:\d{2}/).to_stderr_from_any_process
+          end
+        end
       end
     end
 

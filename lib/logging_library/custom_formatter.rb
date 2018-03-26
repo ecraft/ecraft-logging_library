@@ -9,8 +9,6 @@ module LoggingLibrary
     DATE_PATTERN = '%Y-%m-%d %H:%M:%S.%L'.freeze
 
     LogMessage = Struct.new(:severity, :time, :logger_name, :message) do
-      LINE_PREPEND = ' ' * 8
-
       def to_formatted_string
         if show_time?
           format("%s %s %s %s\n", formatted_colored_severity, formatted_colored_time,
@@ -19,6 +17,10 @@ module LoggingLibrary
           format("%-5s %s %s\n", formatted_colored_severity, formatted_colored_logger_name, colored_message)
         end
       end
+
+      private
+
+      LINE_PREPEND = ' ' * 8
 
       def colored_message
         return formatted_message unless Rainbow.enabled
@@ -55,7 +57,7 @@ module LoggingLibrary
         if Rainbow.enabled
           Rainbow(formatted_time).color(time_color_for_severity)
         else
-          formatted_severity
+          formatted_time
         end
       end
 
@@ -117,7 +119,11 @@ module LoggingLibrary
         # When STDERR is redirected, we are likely running as a service with a
         # syslog daemon already appending a timestamp to the line (and two
         # timestamps is redundant).
-        tty?
+        tty? && !disable_timestamps?
+      end
+
+      def disable_timestamps?
+        ENV['LOGGING_LIBRARY_DISABLE_TIMESTAMPS']
       end
 
       def tty?
