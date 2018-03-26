@@ -64,6 +64,8 @@ module LoggingLibrary
           expect { subject.logger.warn('warn blerp') }.to output(/warn blerp/).to_stderr_from_any_process
         end
 
+        let(:timestamp_pattern) { /\d{2}:\d{2}:\d{2}/ }
+
         context 'when LOGGING_LIBRARY_DISABLE_TIMESTAMPS is set' do
           before {
             allow(ENV).to receive('[]').and_call_original
@@ -72,7 +74,7 @@ module LoggingLibrary
           }
 
           it 'does not include the timestamp in the logged output' do
-            expect { subject.logger.warn('message without timestamp') }.to_not output(/\d{2}:\d{2}:\d{2}/).to_stderr_from_any_process
+            expect { subject.logger.warn('message without timestamp') }.to_not output(timestamp_pattern).to_stderr_from_any_process
           end
         end
 
@@ -84,7 +86,7 @@ module LoggingLibrary
           }
 
           it 'includes the timestamp in the logged output' do
-            expect { subject.logger.warn('message with timestamp') }.to output(/\d{2}:\d{2}:\d{2}/).to_stderr_from_any_process
+            expect { subject.logger.warn('message with timestamp') }.to output(timestamp_pattern).to_stderr_from_any_process
           end
         end
       end
