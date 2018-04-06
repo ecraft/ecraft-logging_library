@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoggingLibrary
   describe Loggable do
     context 'when a module includes the Loggable module' do

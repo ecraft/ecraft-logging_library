@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoggingLibrary
   describe LoggerFactory do
     it 'takes optional explicit name' do

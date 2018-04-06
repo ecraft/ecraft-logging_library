@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'logging_library/custom_formatter'
 require 'logging_library/logger_factory'
 require 'logging_library/logger'

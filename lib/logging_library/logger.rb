@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 require 'mixlib/log'
 
@@ -14,7 +16,7 @@ module LoggingLibrary
     def_delegator :logger, :progname, :name
 
     def initialize(name)
-      init(LoggingLibrary::output_device)
+      init(LoggingLibrary.output_device)
 
       logger.level = :info
       logger.progname = name

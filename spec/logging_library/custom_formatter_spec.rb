@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoggingLibrary
   describe CustomFormatter::LogMessage do
     describe '#to_formatted_string' do

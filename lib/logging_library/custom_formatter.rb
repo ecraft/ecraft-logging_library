@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'logger'
 require 'rainbow'
 
@@ -6,7 +8,7 @@ module LoggingLibrary
   # Handles log formatting. Not intended to be used from user code.
   #
   class CustomFormatter < ::Logger::Formatter
-    DATE_PATTERN = '%Y-%m-%d %H:%M:%S.%L'.freeze
+    DATE_PATTERN = '%Y-%m-%d %H:%M:%S.%L'
 
     LogMessage = Struct.new(:severity, :time, :logger_name, :message) do
       def to_formatted_string

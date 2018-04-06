@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoggingLibrary
   #
   # Module responsible for instantiating logger objects.
