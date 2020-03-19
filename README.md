@@ -80,7 +80,9 @@ conduct.
 
 ### Documentation
 
-We strive to write API documentation inline in [YARD](http://yardoc.org) format.
+We strive to write API documentation inline in [YARD](http://yardoc.org) format. Whenever
+a new version of the gem is released, this documentation gets published at this address:
+https://rubydoc.info/gems/logging_library
 
 Generate API documentation using `yardoc` or `rake yard`.
 
